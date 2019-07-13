@@ -281,7 +281,7 @@ public abstract class CameraActivity extends AppCompatActivity
   public synchronized void onStart() {
     LOGGER.d("onStart " + this);
     super.onStart();
-    setNumThreads(4);
+    setNumThreads(7);
   }
 
   @Override

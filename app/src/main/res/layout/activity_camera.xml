@@ -42,7 +42,8 @@
                 android:layout_marginStart="132dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="132dp"
-                android:text="Collect Elements" />
+                android:text="Collect Elements"
+                android:visibility="invisible" />
 
             <FrameLayout
                 android:id="@+id/container"
@@ -53,7 +54,6 @@
 
             <TextView
                 android:id="@+id/objectType"
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/container"
@@ -62,9 +62,11 @@
                 android:layout_marginStart="96dp"
                 android:layout_marginTop="500dp"
                 android:layout_marginEnd="96dp"
+                android:gravity="center"
                 android:text=""
                 android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                tools:text="Analysing Environment" />
 
         </RelativeLayout>
 

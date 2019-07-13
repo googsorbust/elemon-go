@@ -59,7 +59,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   // Minimum detection confidence to track a detection.
   private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
   private static final boolean MAINTAIN_ASPECT = false;
-  private static final Size DESIRED_PREVIEW_SIZE = new Size(640, 480);
+  private static final Size DESIRED_PREVIEW_SIZE = new Size(1280, 960);
   private static final boolean SAVE_PREVIEW_BITMAP = false;
   private static final float TEXT_SIZE_DIP = 10;
   OverlayView trackingOverlay;
@@ -215,11 +215,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                               if(recognition.getConfidence() >= highestRecognition) {
                                   highestRecognition = recognition.getConfidence();
                               }
-                              if(highestRecognition > 0.6) {
+                              if(highestRecognition > 0.7) {
                                   objectType.setText(recognition.getTitle());
                                   collectElements.setVisibility(View.VISIBLE);
                               } else {
-
                                   objectType.setText("Analysing Environment");
                                   collectElements.setVisibility(View.INVISIBLE);
                               }
