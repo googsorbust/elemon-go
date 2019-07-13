@@ -32,9 +32,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.env.BorderedText;
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
@@ -82,6 +86,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private MultiBoxTracker tracker;
 
   private BorderedText borderedText;
+
+  public Map<String, List<Element>> elementsList = new HashMap<>();
 
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -143,6 +149,65 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             });
 
     tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
+    initialiseDictionary();
+  }
+
+  private void initialiseDictionary(){
+      List<Element> spoonElements = new ArrayList<>();
+      spoonElements.add(new Element("Fe", 26, "55.845", "Iron", false));
+      spoonElements.add(new Element("Ni", 28, "58.693", "Nickel", false));
+      spoonElements.add(new Element("Cr", 24, "51.996", "Chromium", false));
+
+      List<Element> bananaElements = new ArrayList<>();
+      bananaElements.add(new Element("K", 19, "39.098", "Potassium", false));
+
+      List<Element> donutElements = new ArrayList<>();
+      donutElements.add(new Element("C", 6, "12.011", "Carbon", false));
+      donutElements.add(new Element("H", 1, "1", "Hydrogen", false));
+      donutElements.add(new Element("O", 8, "16", "Oxygen", false));
+
+      List<Element> wineGlassElements = new ArrayList<>();
+      wineGlassElements.add(new Element("Si", 14, "28.085", "Silicon", false));
+
+      List<Element> laptopElements = new ArrayList<>();
+      laptopElements.add(new Element("Al", 13, "26.982", "Aluminium", false));
+
+      List<Element> broccoliElements = new ArrayList<>();
+      broccoliElements.add(new Element("C", 6, "12.011", "Carbon", false));
+      broccoliElements.add(new Element("H", 1, "1", "Hydrogen", false));
+      broccoliElements.add(new Element("O", 8, "16", "Oxygen", false));
+      broccoliElements.add(new Element("N", 7, "14", "Nitrogen", false));
+      broccoliElements.add(new Element("S", 16, "32.06", "Sulphur", false));
+
+      List<Element> carrotElements = new ArrayList<>();
+      carrotElements.add(new Element("H", 1, "1", "Hydrogen", false));
+      carrotElements.add(new Element("O", 8, "16", "Oxygen", false));
+
+      List<Element> personElements = new ArrayList<>();
+      personElements.add(new Element("C", 6, "12.011", "Carbon", false));
+      personElements.add(new Element("H", 1, "1", "Hydrogen", false));
+      personElements.add(new Element("O", 8, "16", "Oxygen", false));
+
+      List<Element> cakeElements = new ArrayList<>();
+      cakeElements.add(new Element("Na", 11, "22.990", "Sodium", false));
+      cakeElements.add(new Element("P", 15, "30.974", "Phosphorus", false));
+      cakeElements.add(new Element("C", 6, "12.011", "Carbon", false));
+      cakeElements.add(new Element("H", 1, "1", "Hydrogen", false));
+      cakeElements.add(new Element("O", 8, "16", "Oxygen", false));
+
+      List<Element> forkElements = new ArrayList<>();
+      forkElements.add(new Element("Ag", 47, "107.87", "Silver", false));
+
+      elementsList.put("spoon", spoonElements);
+      elementsList.put("banana", bananaElements);
+      elementsList.put("donut", donutElements);
+      elementsList.put("wine glass", wineGlassElements);
+      elementsList.put("laptop", laptopElements);
+      elementsList.put("broccoli", broccoliElements);
+      elementsList.put("carrot", carrotElements);
+      elementsList.put("person", personElements);
+      elementsList.put("cake", cakeElements);
+      elementsList.put("fork", forkElements);
   }
 
   @Override
