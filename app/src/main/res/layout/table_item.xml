@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.tensorflow.lite.examples.detection.RelativeSquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
@@ -56,4 +56,4 @@
         android:textColor="@android:color/black"
         android:textSize="12sp" />
 
-</RelativeLayout>
+</org.tensorflow.lite.examples.detection.RelativeSquareLayout>
