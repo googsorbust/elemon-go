@@ -158,20 +158,22 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       laptopElements.add(new Element("Al", 13, "26.982", "Aluminium", false));
 
       List<Element> broccoliElements = new ArrayList<>();
+      broccoliElements.add(new Element("S", 16, "32.06", "Sulphur", false));
       broccoliElements.add(new Element("C", 6, "12.011", "Carbon", false));
       broccoliElements.add(new Element("H", 1, "1", "Hydrogen", false));
       broccoliElements.add(new Element("O", 8, "16", "Oxygen", false));
       broccoliElements.add(new Element("N", 7, "14", "Nitrogen", false));
-      broccoliElements.add(new Element("S", 16, "32.06", "Sulphur", false));
+
 
       List<Element> carrotElements = new ArrayList<>();
-      carrotElements.add(new Element("H", 1, "1", "Hydrogen", false));
       carrotElements.add(new Element("O", 8, "16", "Oxygen", false));
+      carrotElements.add(new Element("H", 1, "1", "Hydrogen", false));
+
 
       List<Element> personElements = new ArrayList<>();
-      personElements.add(new Element("C", 6, "12.011", "Carbon", false));
       personElements.add(new Element("H", 1, "1", "Hydrogen", false));
       personElements.add(new Element("O", 8, "16", "Oxygen", false));
+      personElements.add(new Element("C", 6, "12.011", "Carbon", false));
 
       List<Element> cakeElements = new ArrayList<>();
       cakeElements.add(new Element("Na", 11, "22.990", "Sodium", false));
@@ -183,6 +185,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       List<Element> forkElements = new ArrayList<>();
       forkElements.add(new Element("Ag", 47, "107.87", "Silver", false));
 
+      List<Element> zebraElements = new ArrayList<>();
+      zebraElements.add(new Element("Ag", 47, "107.87", "Silver", false));
+
       elementsList.put("spoon", spoonElements);
       elementsList.put("banana", bananaElements);
       elementsList.put("donut", donutElements);
@@ -193,6 +198,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       elementsList.put("person", personElements);
       elementsList.put("cake", cakeElements);
       elementsList.put("fork", forkElements);
+      elementsList.put("zebra", zebraElements);
   }
 
   @Override
@@ -257,6 +263,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
               runOnUiThread(
                       () -> {
+
 //                        showFrameInfo(previewWidth + "x" + previewHeight);
 //                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
 //                        showInference(lastProcessingTimeMs + "ms");
@@ -265,12 +272,19 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                               if(recognition.getConfidence() >= highestRecognition) {
                                   highestRecognition = recognition.getConfidence();
                               }
-                              if(highestRecognition > 0.7) {
+                              if(highestRecognition > 0.6) {
                                   objectType.setText(recognition.getTitle());
+                                  typeObject = recognition.getTitle();
                                   collectElements.setVisibility(View.VISIBLE);
+                                  try{
+                                      collectable = elementsList.get(recognition.getTitle()).get(0);
+                                  } catch(Exception e) {
+                                     // Go away, nothing to see here
+                                  }
                               } else {
                                   objectType.setText("Analysing Environment");
                                   collectElements.setVisibility(View.INVISIBLE);
+                                  collectable = null;
                               }
                           }
                       });

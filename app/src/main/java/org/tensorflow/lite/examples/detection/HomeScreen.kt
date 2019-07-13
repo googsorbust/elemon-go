@@ -24,8 +24,13 @@ class HomeScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_screen)
 
-        sharedPref = this@HomeScreen.getPreferences(Context.MODE_PRIVATE)
+        sharedPref = this@HomeScreen.getSharedPreferences("test", Context.MODE_PRIVATE)
         init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updatePointsOnView()
     }
 
     fun showDetectionScreen(view: View) {
@@ -50,6 +55,7 @@ class HomeScreen : AppCompatActivity() {
     }
 
     private fun updatePointsOnView() {
+
         val result = pointsFromSharedPreferences
         points = if (result >= 0) result else 0
 
@@ -59,7 +65,7 @@ class HomeScreen : AppCompatActivity() {
         view.text = formattedPoints
     }
 
-    private fun addPoints(pointsToAdd: Int) {
+    public fun addPoints(pointsToAdd: Int) {
         points += pointsToAdd
         writePointsToSharedPreferences(points)
         updatePointsOnView()

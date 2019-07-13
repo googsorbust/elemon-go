@@ -19,6 +19,7 @@ package org.tensorflow.lite.examples.detection;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
@@ -77,6 +78,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private TextView threadsTextView;
   public static TextView objectType;
   public static Button collectElements;
+  public static Element collectable;
+  public static String typeObject = "";
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -206,6 +209,18 @@ public abstract class CameraActivity extends AppCompatActivity
               isProcessingFrame = false;
             };
     processImage();
+  }
+
+  public void analyseElements(View view) {
+    Intent intent = new Intent(this, ElementsFoundActivity.class);
+    if (collectable != null) {
+      intent.putExtra("symbol", collectable.getSymbol());
+      intent.putExtra("number", collectable.getNumber());
+      intent.putExtra("weight", collectable.getWeight());
+      intent.putExtra("name", collectable.getName());
+    }
+    intent.putExtra("object_found", typeObject);
+    startActivity(intent);
   }
 
   /** Callback for Camera2 API */
