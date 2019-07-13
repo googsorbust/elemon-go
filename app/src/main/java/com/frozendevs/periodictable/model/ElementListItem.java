@@ -47,4 +47,13 @@ public class ElementListItem implements Parcelable {
     public int getNumber() {
         return number;
     }
+
+    @Override
+    public String toString() {
+        return "ElementListItem{" +
+                "name='" + name + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", number=" + number +
+                '}';
+    }
 }

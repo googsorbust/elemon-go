@@ -27,6 +27,10 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import org.tensorflow.lite.examples.detection.R;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class PropertiesActivity extends AppCompatActivity {
 
     public static final String EXTRA_ATOMIC_NUMBER = "com.frozendevs.periodictable.AtomicNumber";
@@ -92,6 +96,13 @@ public class PropertiesActivity extends AppCompatActivity {
         TableAdapter tableAdapter = new TableAdapter();
 
         View tileView = findViewById(R.id.tile_view);
+
+        SharedPreferences sharedPref = this.getSharedPreferences("test", Context.MODE_PRIVATE);
+
+        Set<Integer> seenElements = sharedPref.getStringSet("elements", new HashSet<>()).stream().map(Integer::valueOf).collect(Collectors.toSet());
+
+        tableAdapter.setSeenElements(seenElements);
+
         tableAdapter.getView(mElementProperties, tileView, (ViewGroup) tileView.getParent());
         tileView.setClickable(false);
 
