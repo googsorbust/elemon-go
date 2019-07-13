@@ -21,7 +21,9 @@
         <activity
             android:name=".PeriodicTableActivity"
             android:label="Discovered Elements"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" />
+        <activity android:name=".MyElements"></activity>
+        <activity android:name=".HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,13 +33,7 @@
         <activity
             android:name=".DetectorActivity"
             android:label="@string/activity_name_detection"
-            android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
