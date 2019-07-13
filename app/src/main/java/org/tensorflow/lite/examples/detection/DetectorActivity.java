@@ -275,7 +275,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                               if(highestRecognition > 0.6) {
                                   objectType.setText(recognition.getTitle());
                                   typeObject = recognition.getTitle();
-                                  collectElements.setVisibility(View.VISIBLE);
+                                  collectElements.setEnabled(true);
                                   try{
                                       collectable = elementsList.get(recognition.getTitle()).get(0);
                                   } catch(Exception e) {
@@ -283,7 +283,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                   }
                               } else {
                                   objectType.setText("Analysing Environment");
-                                  collectElements.setVisibility(View.INVISIBLE);
+                                  collectElements.setEnabled(false);
                                   collectable = null;
                               }
                           }
