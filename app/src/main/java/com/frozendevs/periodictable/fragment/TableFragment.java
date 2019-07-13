@@ -22,6 +22,7 @@ import com.frozendevs.periodictable.model.TableElementItem;
 import com.frozendevs.periodictable.model.TableItem;
 import com.frozendevs.periodictable.model.adapter.TableAdapter;
 import com.frozendevs.periodictable.view.PeriodicTableView;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 import java.util.List;
@@ -66,11 +67,11 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.table_fragment, container, false);
 
-        mPeriodicTableView = (PeriodicTableView) rootView.findViewById(R.id.elements_table);
+        mPeriodicTableView = rootView.findViewById(R.id.elements_table);
         mPeriodicTableView.setBitmapCache(mBitmapCache);
         mPeriodicTableView.setAdapter(mAdapter);
         mPeriodicTableView.setOnItemClickListener(this);
@@ -105,6 +106,7 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
         super.onResume();
     }
 
+    @NotNull
     @Override
     public Loader<List<TableElementItem>> onCreateLoader(int id, Bundle args) {
         return new AsyncTaskLoader<List<TableElementItem>>(getActivity()) {
@@ -116,7 +118,7 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public void onLoadFinished(Loader<List<TableElementItem>> loader,
+    public void onLoadFinished(@NotNull Loader<List<TableElementItem>> loader,
                                List<TableElementItem> data) {
         mAdapter.setItems(getActivity(), data);
 
@@ -126,11 +128,11 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public void onLoaderReset(Loader<List<TableElementItem>> loader) {
+    public void onLoaderReset(@NotNull Loader<List<TableElementItem>> loader) {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(STATE_TABLE_ADAPTER, mAdapter);

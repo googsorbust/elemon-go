@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:gravity="end"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:gravity="end"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

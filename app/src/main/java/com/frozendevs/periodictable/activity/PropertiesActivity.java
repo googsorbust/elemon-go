@@ -74,13 +74,13 @@ public class PropertiesActivity extends AppCompatActivity {
                     getIntent().getIntExtra(EXTRA_ATOMIC_NUMBER, 1));
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(
+        CollapsingToolbarLayout collapsingToolbar = findViewById(
                 R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(mElementProperties.getName());
 
@@ -91,10 +91,10 @@ public class PropertiesActivity extends AppCompatActivity {
         pagerAdapter.addPage(R.string.fragment_title_properties, PropertiesFragment.class, bundle);
         pagerAdapter.addPage(R.string.fragment_title_isotopes, IsotopesFragment.class, bundle);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/NotoSans-Regular.ttf");
@@ -105,29 +105,29 @@ public class PropertiesActivity extends AppCompatActivity {
         tableAdapter.getView(mElementProperties, tileView, (ViewGroup) tileView.getParent());
         tileView.setClickable(false);
 
-        TextView configuration = (TextView) findViewById(R.id.element_electron_configuration);
+        TextView configuration = findViewById(R.id.element_electron_configuration);
         configuration.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getElectronConfiguration()));
         configuration.setTypeface(typeface);
 
-        TextView shells = (TextView) findViewById(R.id.element_electrons_per_shell);
+        TextView shells = findViewById(R.id.element_electrons_per_shell);
         shells.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getElectronsPerShell()));
         shells.setTypeface(typeface);
 
-        TextView electronegativity = (TextView) findViewById(R.id.element_electronegativity);
+        TextView electronegativity = findViewById(R.id.element_electronegativity);
         electronegativity.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getElectronegativity()));
         electronegativity.setTypeface(typeface);
 
-        TextView oxidationStates = (TextView) findViewById(R.id.element_oxidation_states);
+        TextView oxidationStates = findViewById(R.id.element_oxidation_states);
         oxidationStates.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getOxidationStates()));
         oxidationStates.setTypeface(typeface);
 
         String imageUrl = mElementProperties.getImageUrl();
 
-        final ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
+        final ImageView backdrop = findViewById(R.id.backdrop);
 
         if (imageUrl.equals("")) {
             backdrop.setImageResource(R.drawable.backdrop);
@@ -198,7 +198,7 @@ public class PropertiesActivity extends AppCompatActivity {
 
         View view = ((RecyclerView.RecyclerContextMenuInfo) item.getMenuInfo()).targetView;
 
-        TextView symbol = (TextView) view.findViewById(R.id.property_symbol);
+        TextView symbol = view.findViewById(R.id.property_symbol);
 
         if (symbol != null) {
             propertyName = getString(R.string.property_symbol);
@@ -208,11 +208,10 @@ public class PropertiesActivity extends AppCompatActivity {
             propertyValue = (String) ((TextView) view.findViewById(R.id.property_value)).getText();
         }
 
-        switch (item.getItemId()) {
-            case R.id.context_copy:
-                ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).
-                        setPrimaryClip(ClipData.newPlainText(propertyName, propertyValue));
-                return true;
+        if (item.getItemId() == R.id.context_copy) {
+            ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).
+                    setPrimaryClip(ClipData.newPlainText(propertyName, propertyValue));
+            return true;
         }
 
         return super.onContextItemSelected(item);

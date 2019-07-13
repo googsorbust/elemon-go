@@ -15,6 +15,7 @@ import com.frozendevs.periodictable.model.ElementListItem;
 import com.frozendevs.periodictable.model.adapter.ElementsAdapter;
 import com.frozendevs.periodictable.view.RecyclerView;
 import com.frozendevs.periodictable.widget.DividerDecoration;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 import java.util.List;
@@ -47,13 +48,13 @@ public class ElementsFragment extends Fragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.elements_list_fragment, container, false);
 
         mEmptyView = rootView.findViewById(R.id.empty_elements_list);
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.elements_list);
+        mRecyclerView = rootView.findViewById(R.id.elements_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setEmptyView(mAdapter.getItemCount() > 0 ? mEmptyView :
@@ -139,6 +140,7 @@ public class ElementsFragment extends Fragment implements
     }
 
 
+    @NotNull
     @Override
     public Loader<List<ElementListItem>> onCreateLoader(int id, Bundle args) {
         return new AsyncTaskLoader<List<ElementListItem>>(getActivity()) {
@@ -150,7 +152,7 @@ public class ElementsFragment extends Fragment implements
     }
 
     @Override
-    public void onLoadFinished(Loader<List<ElementListItem>> loader, List<ElementListItem> data) {
+    public void onLoadFinished(@NotNull Loader<List<ElementListItem>> loader, List<ElementListItem> data) {
         mAdapter.setItems(data);
 
         mAdapter.notifyDataSetChanged();
@@ -159,11 +161,11 @@ public class ElementsFragment extends Fragment implements
     }
 
     @Override
-    public void onLoaderReset(Loader<List<ElementListItem>> loader) {
+    public void onLoaderReset(@NotNull Loader<List<ElementListItem>> loader) {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putParcelableArray(STATE_LIST_ITEMS, mAdapter.getItems());

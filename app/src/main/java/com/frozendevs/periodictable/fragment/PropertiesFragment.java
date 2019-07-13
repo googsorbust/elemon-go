@@ -11,16 +11,17 @@ import com.frozendevs.periodictable.model.ElementProperties;
 import com.frozendevs.periodictable.model.adapter.PropertiesAdapter;
 import com.frozendevs.periodictable.view.RecyclerView;
 import com.frozendevs.periodictable.widget.DividerDecoration;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 public class PropertiesFragment extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.properties_fragment, container, false);
 
-        final RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.properties_list);
+        final RecyclerView recyclerView = layout.findViewById(R.id.properties_list);
 
         PropertiesAdapter adapter = new PropertiesAdapter(getActivity(),
                 (ElementProperties) getArguments().get(PropertiesActivity.ARGUMENT_PROPERTIES));

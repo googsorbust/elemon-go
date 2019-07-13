@@ -140,13 +140,13 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
         if (viewHolder == null) {
             viewHolder = new ViewHolder();
 
-            viewHolder.symbol = (TextView) convertView.findViewById(R.id.element_symbol);
+            viewHolder.symbol = convertView.findViewById(R.id.element_symbol);
             viewHolder.symbol.setTypeface(mTypeface);
-            viewHolder.number = (TextView) convertView.findViewById(R.id.element_number);
+            viewHolder.number = convertView.findViewById(R.id.element_number);
             viewHolder.number.setTypeface(mTypeface);
-            viewHolder.name = (TextView) convertView.findViewById(R.id.element_name);
+            viewHolder.name = convertView.findViewById(R.id.element_name);
             viewHolder.name.setTypeface(mTypeface);
-            viewHolder.weight = (TextView) convertView.findViewById(R.id.element_weight);
+            viewHolder.weight = convertView.findViewById(R.id.element_weight);
             viewHolder.weight.setTypeface(mTypeface);
 
             convertView.setTag(viewHolder);
@@ -180,7 +180,7 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
                     R.layout.table_active_item, parent, false);
         }
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.bitmap);
+        ImageView imageView = convertView.findViewById(R.id.bitmap);
         imageView.setImageBitmap(bitmap);
 
         return convertView;

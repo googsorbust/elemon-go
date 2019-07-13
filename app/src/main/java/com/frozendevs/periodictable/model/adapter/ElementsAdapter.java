@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.frozendevs.periodictable.activity.PropertiesActivity;
 import com.frozendevs.periodictable.model.ElementListItem;
 import com.frozendevs.periodictable.view.RecyclerView;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 import java.util.ArrayList;
@@ -24,14 +25,15 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
         setHasStableIds(true);
     }
 
+    @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.elements_list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull ViewHolder holder, int position) {
         ElementListItem item = mFilteredItems.get(position);
 
         holder.setName(item.getName());
@@ -89,7 +91,7 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
     }
 
     public void setItems(List<ElementListItem> items) {
-        setItems(items.toArray(new ElementListItem[items.size()]));
+        setItems(items.toArray(new ElementListItem[0]));
     }
 
     public void setItems(ElementListItem[] items) {
@@ -108,9 +110,9 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mSymbolView = (TextView) itemView.findViewById(R.id.element_symbol);
-            mNumberView = (TextView) itemView.findViewById(R.id.element_number);
-            mNameView = (TextView) itemView.findViewById(R.id.element_name);
+            mSymbolView = itemView.findViewById(R.id.element_symbol);
+            mNumberView = itemView.findViewById(R.id.element_number);
+            mNameView = itemView.findViewById(R.id.element_name);
 
             itemView.setOnClickListener(this);
         }

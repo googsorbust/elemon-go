@@ -2,7 +2,6 @@ package com.frozendevs.periodictable.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -15,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 public class SettingsActivity extends PreferenceActivity {
@@ -43,20 +43,17 @@ public class SettingsActivity extends PreferenceActivity {
             findPreference("version").setSummary(versionName);
 
             findPreference("licences").setOnPreferenceClickListener(
-                    new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            WebView webView = new WebView(getApplicationContext());
-                            webView.loadUrl("file:///android_asset/html/licenses.html");
+                    preference -> {
+                        WebView webView = new WebView(getApplicationContext());
+                        webView.loadUrl("file:///android_asset/html/licenses.html");
 
-                            AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this).
-                                    create();
-                            dialog.setTitle(R.string.preference_open_source_licences);
-                            dialog.setView(webView);
-                            dialog.show();
+                        AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this).
+                                create();
+                        dialog.setTitle(R.string.preference_open_source_licences);
+                        dialog.setView(webView);
+                        dialog.show();
 
-                            return true;
-                        }
+                        return true;
                     });
         } else {
             addPreferencesFromResource(R.xml.settings);
@@ -78,6 +75,7 @@ public class SettingsActivity extends PreferenceActivity {
         getDelegate().setSupportActionBar(toolbar);
     }
 
+    @NotNull
     @Override
     public MenuInflater getMenuInflater() {
         return getDelegate().getMenuInflater();
@@ -152,10 +150,9 @@ public class SettingsActivity extends PreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

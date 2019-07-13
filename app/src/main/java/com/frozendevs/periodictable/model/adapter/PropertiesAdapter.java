@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.frozendevs.periodictable.model.ElementProperties;
 import com.frozendevs.periodictable.view.RecyclerView;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 public class PropertiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -32,7 +33,7 @@ public class PropertiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private Context mContext;
     private Typeface mTypeface;
-    private Property[] mProperties = new Property[0];
+    private Property[] mProperties;
 
     public PropertiesAdapter(Context context, ElementProperties properties) {
         mContext = context;
@@ -127,14 +128,15 @@ public class PropertiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return property;
     }
 
+    @NotNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext).inflate(viewType == VIEW_TYPE_HEADER
                 ? R.layout.properties_list_header : R.layout.properties_list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position) {
         Property property = mProperties[position];
 
         ((ViewHolder) holder).setName(property.getName());
@@ -155,7 +157,7 @@ public class PropertiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private class Property {
-        String mName = "", mValue;
+        String mName, mValue;
 
         Property(int name) {
             mName = mContext.getString(name);
@@ -187,8 +189,8 @@ public class PropertiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mName = (TextView) itemView.findViewById(R.id.property_name);
-            mValue = (TextView) itemView.findViewById(R.id.property_value);
+            mName = itemView.findViewById(R.id.property_name);
+            mValue = itemView.findViewById(R.id.property_value);
 
             if (mValue != null) {
                 mValue.setTypeface(mTypeface);

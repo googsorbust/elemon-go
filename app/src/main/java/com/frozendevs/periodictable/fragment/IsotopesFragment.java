@@ -11,6 +11,7 @@ import com.frozendevs.periodictable.activity.PropertiesActivity;
 import com.frozendevs.periodictable.model.ElementProperties;
 import com.frozendevs.periodictable.view.RecyclerView;
 import com.frozendevs.periodictable.widget.DividerDecoration;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 //import com.frozendevs.periodictable.model.adapter.IsotopesAdapter;
@@ -27,11 +28,11 @@ public class IsotopesFragment extends Fragment {
 //    private RecyclerViewExpandableItemManager mRecyclerViewExpandableItemManager;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.properties_fragment, container, false);
 
-        final RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.properties_list);
+        final RecyclerView recyclerView = layout.findViewById(R.id.properties_list);
 
         final Parcelable savedState = (savedInstanceState != null) ?
                 savedInstanceState.getParcelable(SAVED_STATE_EXPANDABLE_ITEM_MANAGER) : null;
@@ -73,7 +74,7 @@ public class IsotopesFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
 //        if (mRecyclerViewExpandableItemManager != null) {

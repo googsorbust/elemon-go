@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
-    private ArrayList<PageInfo> mPages = new ArrayList<PageInfo>();
+    private ArrayList<PageInfo> mPages = new ArrayList<>();
 
     public ViewPagerAdapter(AppCompatActivity activity) {
         super(activity.getSupportFragmentManager());
