@@ -22,7 +22,6 @@
             android:name=".PeriodicTableActivity"
             android:label="Discovered Elements"
             android:screenOrientation="landscape" />
-        <activity android:name=".MyElements"></activity>
         <activity android:name=".HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
