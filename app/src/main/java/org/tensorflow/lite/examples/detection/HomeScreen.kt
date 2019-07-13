@@ -3,11 +3,10 @@ package org.tensorflow.lite.examples.detection
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
-
 import java.text.MessageFormat
 
 class HomeScreen : AppCompatActivity() {
@@ -34,7 +33,7 @@ class HomeScreen : AppCompatActivity() {
     }
 
     fun showMyElementsScreen(view: View) {
-        val myIntent = Intent(this@HomeScreen, MyElements::class.java)
+        val myIntent = Intent(this@HomeScreen, PeriodicTableActivity::class.java)
         this@HomeScreen.startActivity(myIntent)
 
     }
