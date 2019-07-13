@@ -188,15 +188,8 @@ public class PropertiesActivity extends AppCompatActivity {
 
         View view = ((RecyclerView.RecyclerContextMenuInfo) item.getMenuInfo()).targetView;
 
-        TextView symbol = view.findViewById(R.id.property_value);
-
-        if (symbol != null) {
-            propertyName = getString(R.string.property_symbol);
-            propertyValue = (String) symbol.getText();
-        } else {
-            propertyName = (String) ((TextView) view.findViewById(R.id.property_name)).getText();
-            propertyValue = (String) ((TextView) view.findViewById(R.id.property_value)).getText();
-        }
+        propertyName = (String) ((TextView) view.findViewById(R.id.property_name)).getText();
+        propertyValue = (String) ((TextView) view.findViewById(R.id.property_value)).getText();
 
         if (item.getItemId() == R.id.context_copy) {
             ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).

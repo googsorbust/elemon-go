@@ -1,6 +1,8 @@
 package com.frozendevs.periodictable.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +26,10 @@ import com.frozendevs.periodictable.view.PeriodicTableView;
 import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TableFragment extends Fragment implements PeriodicTableView.OnItemClickListener,
         LoaderManager.LoaderCallbacks<List<TableElementItem>> {
@@ -114,9 +119,12 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public void onLoadFinished(@NotNull Loader<List<TableElementItem>> loader,
-                               List<TableElementItem> data) {
-        mAdapter.setItems(getActivity(), data);
+    public void onLoadFinished(@NotNull Loader<List<TableElementItem>> loader, List<TableElementItem> data) {
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("test", Context.MODE_PRIVATE);
+
+        Set<Integer> seenElements = sharedPref.getStringSet("elements", new HashSet<>()).stream().map(Integer::valueOf).collect(Collectors.toSet());
+
+        mAdapter.setItems(getActivity(), data, seenElements);
 
         mBitmapCache.resize(mAdapter.getCount());
 

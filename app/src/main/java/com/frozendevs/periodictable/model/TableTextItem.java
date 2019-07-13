@@ -47,4 +47,12 @@ public class TableTextItem implements TableItem, Parcelable {
     public int getCategory() {
         return category;
     }
+
+    @Override
+    public String toString() {
+        return "TableTextItem{" +
+                "text='" + text + '\'' +
+                ", category=" + category +
+                '}';
+    }
 }
