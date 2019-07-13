@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="active_view_position" type="id" />
+
+    <item name="elements_list_loader" type="id" />
+    <item name="table_loader" type="id" />
+
+</resources>
