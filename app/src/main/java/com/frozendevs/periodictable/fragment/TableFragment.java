@@ -2,7 +2,6 @@ package com.frozendevs.periodictable.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -52,14 +51,12 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final PeriodicTableApplication application = (PeriodicTableApplication)
-                    getActivity().getApplication();
+        final PeriodicTableApplication application = (PeriodicTableApplication)
+                getActivity().getApplication();
 
-            application.setSharedElementCallback(new SharedElementCallback());
+        application.setSharedElementCallback(new SharedElementCallback());
 
-            application.setOnAttachStateChangeListener(new OnAttachStateChangeListener());
-        }
+        application.setOnAttachStateChangeListener(new OnAttachStateChangeListener());
 
         if (mAdapter.isEmpty()) {
             getLoaderManager().initLoader(R.id.table_loader, null, this);
@@ -88,8 +85,7 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
             parent.setEnabled(false);
 
             Intent intent = new Intent(getActivity(), PropertiesActivity.class);
-            intent.putExtra(PropertiesActivity.EXTRA_ATOMIC_NUMBER,
-                    ((TableElementItem) item).getNumber());
+            intent.putExtra(PropertiesActivity.EXTRA_ATOMIC_NUMBER, ((TableElementItem) item).getNumber());
 
             ActivityCompat.startActivity(getActivity(), intent,
                     ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,

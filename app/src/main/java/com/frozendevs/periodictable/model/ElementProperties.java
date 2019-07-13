@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 public class ElementProperties extends TableElementItem {
 
-    public static final Parcelable.Creator<ElementProperties> CREATOR
-            = new Parcelable.Creator<ElementProperties>() {
+    public static final Parcelable.Creator<ElementProperties> CREATOR = new Parcelable.Creator<ElementProperties>() {
+
         public ElementProperties createFromParcel(Parcel in) {
             return new ElementProperties(in);
         }
@@ -15,6 +15,7 @@ public class ElementProperties extends TableElementItem {
             return new ElementProperties[size];
         }
     };
+
     private String block, electronConfiguration, wikipediaLink, appearance, phase, density,
             liquidDensityAtMeltingPoint, liquidDensityAtBoilingPoint, meltingPoint,
             sublimationPoint, boilingPoint, triplePoint, criticalPoint, heatOfFusion,
