@@ -110,9 +110,9 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mSymbolView = (TextView) itemView.findViewById(R.id.element_symbol_found);
-            mNumberView = (TextView) itemView.findViewById(R.id.element_number_found);
-            mNameView = (TextView) itemView.findViewById(R.id.element_name_found);
+            mSymbolView = itemView.findViewById(R.id.element_symbol_found);
+            mNumberView = itemView.findViewById(R.id.element_number_found);
+            mNameView = itemView.findViewById(R.id.element_name_found);
 
             itemView.setOnClickListener(this);
         }

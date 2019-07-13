@@ -140,13 +140,13 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
         if (viewHolder == null) {
             viewHolder = new ViewHolder();
 
-            viewHolder.symbol = (TextView) convertView.findViewById(R.id.element_symbol_found);
+            viewHolder.symbol = convertView.findViewById(R.id.element_symbol_found);
             viewHolder.symbol.setTypeface(mTypeface);
-            viewHolder.number = (TextView) convertView.findViewById(R.id.element_number_found);
+            viewHolder.number = convertView.findViewById(R.id.element_number_found);
             viewHolder.number.setTypeface(mTypeface);
-            viewHolder.name = (TextView) convertView.findViewById(R.id.element_name_found);
+            viewHolder.name = convertView.findViewById(R.id.element_name_found);
             viewHolder.name.setTypeface(mTypeface);
-            viewHolder.weight = (TextView) convertView.findViewById(R.id.element_weight_found);
+            viewHolder.weight = convertView.findViewById(R.id.element_weight_found);
             viewHolder.weight.setTypeface(mTypeface);
 
             convertView.setTag(viewHolder);
