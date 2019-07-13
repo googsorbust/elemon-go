@@ -188,6 +188,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       List<Element> zebraElements = new ArrayList<>();
       zebraElements.add(new Element("Ag", 47, "107.87", "Silver", false));
 
+      List<Element> appleElements = new ArrayList<>();
+      appleElements.add(new Element("Zn", 30, "65.380", "Zinc", false));
+
+      List<Element> orangeElements = new ArrayList<>();
+      orangeElements.add(new Element("Ca", 20, "40.078", "Calcium", false));
+
       elementsList.put("spoon", spoonElements);
       elementsList.put("banana", bananaElements);
       elementsList.put("donut", donutElements);
@@ -199,6 +205,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       elementsList.put("cake", cakeElements);
       elementsList.put("fork", forkElements);
       elementsList.put("zebra", zebraElements);
+      elementsList.put("apple", appleElements);
+      elementsList.put("orange", orangeElements);
+
   }
 
   @Override
