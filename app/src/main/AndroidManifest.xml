@@ -16,7 +16,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyElements"></activity>
+        <activity android:name=".FoundElementActivity"></activity>
+        <activity android:name=".MyElements" />
         <activity android:name=".HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,7 @@
         <activity
             android:name=".DetectorActivity"
             android:label="@string/activity_name_detection"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
