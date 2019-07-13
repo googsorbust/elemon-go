@@ -34,6 +34,9 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
             return new TableAdapter[size];
         }
     };
+
+    private static final int GREYED_OUT = Color.GRAY;
+
     private static final int[] COLORS = {
             R.color.category_diatomic_nonmetals_bg,
             R.color.category_noble_gases_bg,
@@ -113,7 +116,12 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
                         parent, false);
             }
 
-            convertView.setBackgroundColor(getBackgroundColor(context, item));
+            if (("57 - 71".equals(((TableTextItem) item).getText()) && seenElements.stream().noneMatch(i -> i >= 57 && i <= 71)) ||
+                    ("89 - 103".equals(((TableTextItem) item).getText()) && seenElements.stream().noneMatch(i -> i >= 89 && i <= 103))) {
+                convertView.setBackgroundColor(GREYED_OUT);
+            } else {
+                convertView.setBackgroundColor(getBackgroundColor(context, item));
+            }
 
             ((TextView) convertView).setText(((TableTextItem) item).getText());
 

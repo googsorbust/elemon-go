@@ -119,8 +119,7 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public void onLoadFinished(@NotNull Loader<List<TableElementItem>> loader,
-                               List<TableElementItem> data) {
+    public void onLoadFinished(@NotNull Loader<List<TableElementItem>> loader, List<TableElementItem> data) {
         SharedPreferences sharedPref = getActivity().getSharedPreferences("test", Context.MODE_PRIVATE);
 
         Set<Integer> seenElements = sharedPref.getStringSet("elements", new HashSet<>()).stream().map(Integer::valueOf).collect(Collectors.toSet());
