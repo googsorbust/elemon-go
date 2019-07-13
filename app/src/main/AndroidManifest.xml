@@ -5,6 +5,7 @@
 
     <uses-sdk />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -16,12 +17,12 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:name="com.frozendevs.periodictable.PeriodicTableApplication"
+        android:theme="@style/Theme.Application"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".PeriodicTableActivity"
-            android:label="Discovered Elements"
-            android:screenOrientation="landscape" />
+        <activity android:name="com.frozendevs.periodictable.activity.MainActivity" />
+        <activity android:name="com.frozendevs.periodictable.activity.PropertiesActivity" />
+        <activity android:name="com.frozendevs.periodictable.activity.SettingsActivity" />
         <activity android:name=".HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

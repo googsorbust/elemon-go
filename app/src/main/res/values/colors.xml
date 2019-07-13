@@ -5,4 +5,25 @@
     <color name="colorAccent">#d2d0d1</color>
 
     <color name="semi_transparent">#66000000</color>
+
+    <color name="primary">#ff212121</color>
+    <color name="primary_dark">@android:color/black</color>
+    <color name="accent">#ff80cbc4</color>
+
+    <color name="category_actinides_bg">#ff99cc</color>
+    <color name="category_alkali_metals_bg">#ff6666</color>
+    <color name="category_alkaline_earth_metals_bg">#ffdead</color>
+    <color name="category_diatomic_nonmetals_bg">#e7ff8f</color>
+    <color name="category_lanthanides_bg">#ffbfff</color>
+    <color name="category_metalloids_bg">#cccc99</color>
+    <color name="category_noble_gases_bg">#c0ffff</color>
+    <color name="category_polyatomic_nonmetals_bg">#a1ffc3</color>
+    <color name="category_other_metals_bg">#cccccc</color>
+    <color name="category_transition_metals_bg">#ffc0c0</color>
+    <color name="category_unknown_bg">#e8e8e8</color>
+
+    <color name="properties_status_bar">#40000000</color>
+
+    <color name="ripple_dark">#33ffffff</color>
+    <color name="ripple_light">#1f000000</color>
 </resources>

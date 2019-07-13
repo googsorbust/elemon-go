@@ -2,4 +2,19 @@
 <resources>
     <dimen name="bottom_sheet_corner_radius">15dp</dimen>
     <dimen name="bottom_sheet_top_padding">8dp</dimen>
+
+
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+
+    <dimen name="table_item_size">95dp</dimen>
+
+    <dimen name="listPreferredItemPaddingTop">8dp</dimen>
+    <dimen name="listPreferredItemPaddingBottom">8dp</dimen>
+
+    <dimen name="view_pager_tabs_side_padding">8dp</dimen>
+
+    <dimen name="backdrop_height">176dp</dimen>
+
+    <dimen name="properties_summary_side_padding">20dp</dimen>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import com.frozendevs.periodictable.activity.MainActivity
 import java.text.MessageFormat
 
 class HomeScreen : AppCompatActivity() {
@@ -33,7 +34,7 @@ class HomeScreen : AppCompatActivity() {
     }
 
     fun showMyElementsScreen(view: View) {
-        val myIntent = Intent(this@HomeScreen, PeriodicTableActivity::class.java)
+        val myIntent = Intent(this@HomeScreen, MainActivity::class.java)
         this@HomeScreen.startActivity(myIntent)
 
     }
