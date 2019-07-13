@@ -69,7 +69,7 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
     private int mGroupsCount;
     private int mPeriodsCount;
     private Map<Integer, TableItem> mItems = new HashMap<>();
-    private Set<Integer> seenElements = new HashSet<>();
+    private Set<Integer> seenElements;
 
     public TableAdapter() {
     }
@@ -77,6 +77,12 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
     protected TableAdapter(Parcel in) {
         mGroupsCount = in.readInt();
         mPeriodsCount = in.readInt();
+
+        seenElements = new HashSet<>();
+        final int elSize = in.readInt();
+        for (int i = 0; i < elSize; i++) {
+            seenElements.add(in.readInt());
+        }
 
         final int size = in.readInt();
         for (int i = 0; i < size; i++) {
@@ -169,7 +175,6 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
         }
 
         if (seenElements.contains(item.getNumber())) {
-            System.out.println("SEEN: " + item.getName());
             convertView.setBackgroundColor(getBackgroundColor(context, item));
         } else {
             convertView.setBackgroundColor(Color.GRAY);
@@ -215,6 +220,10 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
     @Override
     public int getViewTypeCount() {
         return ViewType.values().length;
+    }
+
+    public void setSeenElements(Set<Integer> seenElements) {
+        this.seenElements = seenElements;
     }
 
     public void setItems(Context context, List<TableElementItem> items, Set<Integer> seenElements) {
@@ -291,6 +300,11 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mGroupsCount);
         dest.writeInt(mPeriodsCount);
+
+        dest.writeInt(seenElements.size());
+        for (int el : seenElements) {
+            dest.writeInt(el);
+        }
 
         dest.writeInt(mItems.size());
         for (Map.Entry<Integer, TableItem> item : mItems.entrySet()) {
