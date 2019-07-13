@@ -17,6 +17,8 @@ package org.tensorflow.lite.examples.detection.env;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +81,7 @@ public class Size implements Comparable<Size>, Serializable {
   }
 
   public static List<Size> sizeStringToList(final String sizes) {
-    final List<Size> sizeList = new ArrayList<Size>();
+    final List<Size> sizeList = new ArrayList<>();
     if (sizes != null) {
       final String[] pairs = sizes.split(",");
       for (final String pair : pairs) {
@@ -93,17 +95,17 @@ public class Size implements Comparable<Size>, Serializable {
   }
 
   public static String sizeListToString(final List<Size> sizes) {
-    String sizesString = "";
+    StringBuilder sizesString = new StringBuilder();
     if (sizes != null && sizes.size() > 0) {
-      sizesString = sizes.get(0).toString();
+      sizesString = new StringBuilder(sizes.get(0).toString());
       for (int i = 1; i < sizes.size(); i++) {
-        sizesString += "," + sizes.get(i).toString();
+        sizesString.append(",").append(sizes.get(i).toString());
       }
     }
-    return sizesString;
+    return sizesString.toString();
   }
 
-  public static final String dimensionsAsString(final int width, final int height) {
+  public static String dimensionsAsString(final int width, final int height) {
     return width + "x" + height;
   }
 
@@ -135,6 +137,7 @@ public class Size implements Comparable<Size>, Serializable {
     return width * 32713 + height;
   }
 
+  @NotNull
   @Override
   public String toString() {
     return dimensionsAsString(width, height);

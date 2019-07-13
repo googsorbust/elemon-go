@@ -34,7 +34,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
-import org.tensorflow.lite.examples.detection.customview.OverlayView.DrawCallback;
 import org.tensorflow.lite.examples.detection.env.BorderedText;
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
 import org.tensorflow.lite.examples.detection.env.Logger;
@@ -132,17 +131,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     cropToFrameTransform = new Matrix();
     frameToCropTransform.invert(cropToFrameTransform);
 
-    trackingOverlay = (OverlayView) findViewById(R.id.tracking_overlay);
+    trackingOverlay = findViewById(R.id.tracking_overlay);
     trackingOverlay.addCallback(
-        new DrawCallback() {
-          @Override
-          public void drawCallback(final Canvas canvas) {
-            tracker.draw(canvas);
-            if (isDebug()) {
-              tracker.drawDebug(canvas);
-            }
-          }
-        });
+            canvas -> {
+              tracker.draw(canvas);
+              if (isDebug()) {
+                tracker.drawDebug(canvas);
+              }
+            });
 
     tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
   }
@@ -173,59 +169,45 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     }
 
     runInBackground(
-        new Runnable() {
-          @Override
-          public void run() {
-            LOGGER.i("Running detection on image " + currTimestamp);
-            final long startTime = SystemClock.uptimeMillis();
-            final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
-            lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+            () -> {
+              LOGGER.i("Running detection on image " + currTimestamp);
+              final long startTime = SystemClock.uptimeMillis();
+              final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
+              lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
 
-            cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
-            final Canvas canvas = new Canvas(cropCopyBitmap);
-            final Paint paint = new Paint();
-            paint.setColor(Color.RED);
-            paint.setStyle(Style.STROKE);
-            paint.setStrokeWidth(2.0f);
+              cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
+              final Canvas canvas1 = new Canvas(cropCopyBitmap);
+              final Paint paint = new Paint();
+              paint.setColor(Color.RED);
+              paint.setStyle(Style.STROKE);
+              paint.setStrokeWidth(2.0f);
 
-            float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-            switch (MODE) {
-              case TF_OD_API:
-                minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-                break;
-            }
+              final List<Classifier.Recognition> mappedRecognitions = new LinkedList<>();
 
-            final List<Classifier.Recognition> mappedRecognitions =
-                new LinkedList<Classifier.Recognition>();
+              for (final Classifier.Recognition result : results) {
+                final RectF location = result.getLocation();
+                if (location != null && result.getConfidence() >= MINIMUM_CONFIDENCE_TF_OD_API) {
+                  canvas1.drawRect(location, paint);
 
-            for (final Classifier.Recognition result : results) {
-              final RectF location = result.getLocation();
-              if (location != null && result.getConfidence() >= minimumConfidence) {
-                canvas.drawRect(location, paint);
+                  cropToFrameTransform.mapRect(location);
 
-                cropToFrameTransform.mapRect(location);
-
-                result.setLocation(location);
-                mappedRecognitions.add(result);
+                  result.setLocation(location);
+                  mappedRecognitions.add(result);
+                }
               }
-            }
 
-            tracker.trackResults(mappedRecognitions, currTimestamp);
-            trackingOverlay.postInvalidate();
+              tracker.trackResults(mappedRecognitions, currTimestamp);
+              trackingOverlay.postInvalidate();
 
-            computingDetection = false;
+              computingDetection = false;
 
-            runOnUiThread(
-                new Runnable() {
-                  @Override
-                  public void run() {
-                    showFrameInfo(previewWidth + "x" + previewHeight);
-                    showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-                    showInference(lastProcessingTimeMs + "ms");
-                  }
-                });
-          }
-        });
+              runOnUiThread(
+                      () -> {
+                        showFrameInfo(previewWidth + "x" + previewHeight);
+                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
+                        showInference(lastProcessingTimeMs + "ms");
+                      });
+            });
   }
 
   @Override

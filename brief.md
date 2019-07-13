@@ -1,4 +1,4 @@
-# Elemon go
+# Elemon Go
 ### Kirill Kirillov, Jack Steel, Tom Kearsley, Benny Schmidt
 
 ## An Android app using computer vision teaching about the elements found on Earth in everyday objects

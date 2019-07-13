@@ -28,7 +28,7 @@ public final class Logger {
   private static final Set<String> IGNORED_CLASS_NAMES;
 
   static {
-    IGNORED_CLASS_NAMES = new HashSet<String>(3);
+    IGNORED_CLASS_NAMES = new HashSet<>(3);
     IGNORED_CLASS_NAMES.add("dalvik.system.VMStack");
     IGNORED_CLASS_NAMES.add("java.lang.Thread");
     IGNORED_CLASS_NAMES.add(Logger.class.getCanonicalName());

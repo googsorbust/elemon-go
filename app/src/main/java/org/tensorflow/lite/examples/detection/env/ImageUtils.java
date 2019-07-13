@@ -70,8 +70,7 @@ public class ImageUtils {
       LOGGER.i("Make dir failed");
     }
 
-    final String fname = filename;
-    final File file = new File(myDir, fname);
+    final File file = new File(myDir, filename);
     if (file.exists()) {
       file.delete();
     }

@@ -23,7 +23,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -59,6 +58,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.customview.AutoFitTextureView;
 import org.tensorflow.lite.examples.detection.env.Logger;
 
@@ -98,15 +99,15 @@ public class CameraConnectionFragment extends Fragment {
       new CameraCaptureSession.CaptureCallback() {
         @Override
         public void onCaptureProgressed(
-            final CameraCaptureSession session,
-            final CaptureRequest request,
-            final CaptureResult partialResult) {}
+                @NotNull final CameraCaptureSession session,
+                @NotNull final CaptureRequest request,
+                @NotNull final CaptureResult partialResult) {}
 
         @Override
         public void onCaptureCompleted(
-            final CameraCaptureSession session,
-            final CaptureRequest request,
-            final TotalCaptureResult result) {}
+                @NotNull final CameraCaptureSession session,
+                @NotNull final CaptureRequest request,
+                @NotNull final TotalCaptureResult result) {}
       };
   /** ID of the current {@link CameraDevice}. */
   private String cameraId;
@@ -134,7 +135,7 @@ public class CameraConnectionFragment extends Fragment {
   private final CameraDevice.StateCallback stateCallback =
       new CameraDevice.StateCallback() {
         @Override
-        public void onOpened(final CameraDevice cd) {
+        public void onOpened(@NotNull final CameraDevice cd) {
           // This method is called when the camera is opened.  We start camera preview here.
           cameraOpenCloseLock.release();
           cameraDevice = cd;
@@ -212,8 +213,8 @@ public class CameraConnectionFragment extends Fragment {
 
     // Collect the supported resolutions that are at least as big as the preview Surface
     boolean exactSizeFound = false;
-    final List<Size> bigEnough = new ArrayList<Size>();
-    final List<Size> tooSmall = new ArrayList<Size>();
+    final List<Size> bigEnough = new ArrayList<>();
+    final List<Size> tooSmall = new ArrayList<>();
     for (final Size option : choices) {
       if (option.equals(desiredSize)) {
         // Set the size but don't return yet so that remaining sizes will still be logged.
@@ -264,12 +265,7 @@ public class CameraConnectionFragment extends Fragment {
     final Activity activity = getActivity();
     if (activity != null) {
       activity.runOnUiThread(
-          new Runnable() {
-            @Override
-            public void run() {
-              Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
-            }
-          });
+              () -> Toast.makeText(activity, text, Toast.LENGTH_SHORT).show());
     }
   }
 
@@ -281,7 +277,7 @@ public class CameraConnectionFragment extends Fragment {
 
   @Override
   public void onViewCreated(final View view, final Bundle savedInstanceState) {
-    textureView = (AutoFitTextureView) view.findViewById(R.id.texture);
+    textureView = view.findViewById(R.id.texture);
   }
 
   @Override
@@ -451,7 +447,7 @@ public class CameraConnectionFragment extends Fragment {
           new CameraCaptureSession.StateCallback() {
 
             @Override
-            public void onConfigured(final CameraCaptureSession cameraCaptureSession) {
+            public void onConfigured(@NotNull final CameraCaptureSession cameraCaptureSession) {
               // The camera is already closed
               if (null == cameraDevice) {
                 return;
@@ -478,7 +474,7 @@ public class CameraConnectionFragment extends Fragment {
             }
 
             @Override
-            public void onConfigureFailed(final CameraCaptureSession cameraCaptureSession) {
+            public void onConfigureFailed(@NotNull final CameraCaptureSession cameraCaptureSession) {
               showToast("Failed");
             }
           },
@@ -559,12 +555,7 @@ public class CameraConnectionFragment extends Fragment {
           .setMessage(getArguments().getString(ARG_MESSAGE))
           .setPositiveButton(
               android.R.string.ok,
-              new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialogInterface, final int i) {
-                  activity.finish();
-                }
-              })
+                  (dialogInterface, i) -> activity.finish())
           .create();
     }
   }

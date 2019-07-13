@@ -55,7 +55,7 @@ public class TFLiteObjectDetectionAPIModel implements Classifier {
   // Config values.
   private int inputSize;
   // Pre-allocated buffers.
-  private Vector<String> labels = new Vector<String>();
+  private Vector<String> labels = new Vector<>();
   private int[] intValues;
   // outputLocations: array of shape [Batchsize, NUM_DETECTIONS,4]
   // contains the location of detected boxes
@@ -105,11 +105,9 @@ public class TFLiteObjectDetectionAPIModel implements Classifier {
       throws IOException {
     final TFLiteObjectDetectionAPIModel d = new TFLiteObjectDetectionAPIModel();
 
-    InputStream labelsInput = null;
     String actualFilename = labelFilename.split("file:///android_asset/")[1];
-    labelsInput = assetManager.open(actualFilename);
-    BufferedReader br = null;
-    br = new BufferedReader(new InputStreamReader(labelsInput));
+    InputStream labelsInput = assetManager.open(actualFilename);
+    BufferedReader br = new BufferedReader(new InputStreamReader(labelsInput));
     String line;
     while ((line = br.readLine()) != null) {
       LOGGER.w(line);
@@ -133,7 +131,7 @@ public class TFLiteObjectDetectionAPIModel implements Classifier {
     } else {
       numBytesPerChannel = 4; // Floating point
     }
-    d.imgData = ByteBuffer.allocateDirect(1 * d.inputSize * d.inputSize * 3 * numBytesPerChannel);
+    d.imgData = ByteBuffer.allocateDirect(d.inputSize * d.inputSize * 3 * numBytesPerChannel);
     d.imgData.order(ByteOrder.nativeOrder());
     d.intValues = new int[d.inputSize * d.inputSize];
 

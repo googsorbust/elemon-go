@@ -50,6 +50,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.nio.ByteBuffer;
+
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
 import org.tensorflow.lite.examples.detection.env.Logger;
 
@@ -117,12 +119,7 @@ public abstract class CameraActivity extends AppCompatActivity
         new ViewTreeObserver.OnGlobalLayoutListener() {
           @Override
           public void onGlobalLayout() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-              gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            } else {
-              gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-            //                int width = bottomSheetLayout.getMeasuredWidth();
+            gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             int height = gestureLayout.getMeasuredHeight();
 
             sheetBehavior.setPeekHeight(height);
@@ -209,21 +206,13 @@ public abstract class CameraActivity extends AppCompatActivity
     yRowStride = previewWidth;
 
     imageConverter =
-        new Runnable() {
-          @Override
-          public void run() {
-            ImageUtils.convertYUV420SPToARGB8888(bytes, previewWidth, previewHeight, rgbBytes);
-          }
-        };
+            () -> ImageUtils.convertYUV420SPToARGB8888(bytes, previewWidth, previewHeight, rgbBytes);
 
     postInferenceCallback =
-        new Runnable() {
-          @Override
-          public void run() {
-            camera.addCallbackBuffer(bytes);
-            isProcessingFrame = false;
-          }
-        };
+            () -> {
+              camera.addCallbackBuffer(bytes);
+              isProcessingFrame = false;
+            };
     processImage();
   }
 
@@ -257,10 +246,7 @@ public abstract class CameraActivity extends AppCompatActivity
       final int uvPixelStride = planes[1].getPixelStride();
 
       imageConverter =
-          new Runnable() {
-            @Override
-            public void run() {
-              ImageUtils.convertYUV420ToARGB8888(
+              () -> ImageUtils.convertYUV420ToARGB8888(
                   yuvBytes[0],
                   yuvBytes[1],
                   yuvBytes[2],
@@ -270,17 +256,12 @@ public abstract class CameraActivity extends AppCompatActivity
                   uvRowStride,
                   uvPixelStride,
                   rgbBytes);
-            }
-          };
 
       postInferenceCallback =
-          new Runnable() {
-            @Override
-            public void run() {
-              image.close();
-              isProcessingFrame = false;
-            }
-          };
+              () -> {
+                image.close();
+                isProcessingFrame = false;
+              };
 
       processImage();
     } catch (final Exception e) {
@@ -343,7 +324,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @Override
   public void onRequestPermissionsResult(
-      final int requestCode, final String[] permissions, final int[] grantResults) {
+          final int requestCode, @NotNull final String[] permissions, @NotNull final int[] grantResults) {
     if (requestCode == PERMISSIONS_REQUEST) {
       if (grantResults.length > 0
           && grantResults[0] == PackageManager.PERMISSION_GRANTED
@@ -430,14 +411,11 @@ public abstract class CameraActivity extends AppCompatActivity
     if (useCamera2API) {
       CameraConnectionFragment camera2Fragment =
           CameraConnectionFragment.newInstance(
-              new CameraConnectionFragment.ConnectionCallback() {
-                @Override
-                public void onPreviewSizeChosen(final Size size, final int rotation) {
-                  previewHeight = size.getHeight();
-                  previewWidth = size.getWidth();
-                  CameraActivity.this.onPreviewSizeChosen(size, rotation);
-                }
-              },
+                  (size, rotation) -> {
+                    previewHeight = size.getHeight();
+                    previewWidth = size.getWidth();
+                    CameraActivity.this.onPreviewSizeChosen(size, rotation);
+                  },
               this,
               getLayoutId(),
               getDesiredPreviewFrameSize());

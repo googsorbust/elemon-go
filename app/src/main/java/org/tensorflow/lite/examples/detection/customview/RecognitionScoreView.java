@@ -26,7 +26,6 @@ import org.tensorflow.lite.examples.detection.tflite.Classifier.Recognition;
 
 public class RecognitionScoreView extends View implements ResultsView {
   private static final float TEXT_SIZE_DIP = 14;
-  private final float textSizePx;
   private final Paint fgPaint;
   private final Paint bgPaint;
   private List<Recognition> results;
@@ -34,9 +33,7 @@ public class RecognitionScoreView extends View implements ResultsView {
   public RecognitionScoreView(final Context context, final AttributeSet set) {
     super(context, set);
 
-    textSizePx =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, getResources().getDisplayMetrics());
+    float textSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, getResources().getDisplayMetrics());
     fgPaint = new Paint();
     fgPaint.setTextSize(textSizePx);
 
