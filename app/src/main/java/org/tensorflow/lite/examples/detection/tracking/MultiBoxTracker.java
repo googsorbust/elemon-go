@@ -16,24 +16,21 @@ limitations under the License.
 package org.tensorflow.lite.examples.detection.tracking;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
+import android.graphics.*;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
-import android.graphics.RectF;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.util.TypedValue;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import org.tensorflow.lite.examples.detection.env.BorderedText;
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
 import org.tensorflow.lite.examples.detection.env.Logger;
 import org.tensorflow.lite.examples.detection.tflite.Classifier.Recognition;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /** A tracker that handles non-max suppression and matches existing objects to new detections. */
 public class MultiBoxTracker {
@@ -58,10 +55,8 @@ public class MultiBoxTracker {
   };
   final List<Pair<Float, RectF>> screenRects = new LinkedList<>();
   private final Logger logger = new Logger();
-  private final Queue<Integer> availableColors = new LinkedList<>();
   private final List<TrackedRecognition> trackedObjects = new LinkedList<>();
   private final Paint boxPaint = new Paint();
-  private final float textSizePx;
   private final BorderedText borderedText;
   private Matrix frameToCanvasMatrix;
   private int frameWidth;
@@ -70,6 +65,7 @@ public class MultiBoxTracker {
 
   public MultiBoxTracker(final Context context) {
     for (final int color : COLORS) {
+      Queue<Integer> availableColors = new LinkedList<>();
       availableColors.add(color);
     }
 
@@ -80,8 +76,7 @@ public class MultiBoxTracker {
     boxPaint.setStrokeJoin(Join.ROUND);
     boxPaint.setStrokeMiter(100);
 
-    textSizePx =
-        TypedValue.applyDimension(
+    float textSizePx = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, context.getResources().getDisplayMetrics());
     borderedText = new BorderedText(textSizePx);
   }

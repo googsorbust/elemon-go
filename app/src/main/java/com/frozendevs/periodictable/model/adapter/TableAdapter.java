@@ -180,7 +180,7 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
                     R.layout.table_active_item, parent, false);
         }
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.bitmap);
+        ImageView imageView = convertView.findViewById(R.id.bitmap);
         imageView.setImageBitmap(bitmap);
 
         return convertView;

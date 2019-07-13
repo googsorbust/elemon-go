@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PropertiesActivity">
+    tools:context="com.frozendevs.periodictable.activity.PropertiesActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -81,9 +81,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:ellipsize="marquee"
-                        android:maxLines="1"
                         android:text="@string/property_electron_configuration"
                         android:textAlignment="viewStart"
+                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
@@ -92,9 +92,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:ellipsize="marquee"
-                        android:maxLines="1"
                         android:text="@string/property_electrons_per_shell"
                         android:textAlignment="viewStart"
+                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
@@ -103,9 +103,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:ellipsize="marquee"
-                        android:maxLines="1"
                         android:text="@string/property_electronegativity"
                         android:textAlignment="viewStart"
+                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
@@ -114,9 +114,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:ellipsize="marquee"
-                        android:maxLines="1"
                         android:text="@string/property_oxidation_states"
                         android:textAlignment="viewStart"
+                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </LinearLayout>
@@ -139,15 +139,6 @@
                 app:layout_collapseMode="pin" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/view_pager_tabs_side_padding"
-            android:layout_marginRight="@dimen/view_pager_tabs_side_padding"
-            app:tabIndicatorColor="@color/ripple_dark"
-            app:tabMode="scrollable" />
 
     </com.frozendevs.periodictable.widget.AppBarLayout>
 

@@ -5,13 +5,10 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.SharedElementCallback;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
@@ -19,12 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.frozendevs.periodictable.PeriodicTableApplication;
 import com.frozendevs.periodictable.content.Database;
-import com.frozendevs.periodictable.fragment.IsotopesFragment;
 import com.frozendevs.periodictable.fragment.PropertiesFragment;
 import com.frozendevs.periodictable.model.ElementProperties;
 import com.frozendevs.periodictable.model.adapter.PropertiesAdapter;
 import com.frozendevs.periodictable.model.adapter.TableAdapter;
-import com.frozendevs.periodictable.model.adapter.ViewPagerAdapter;
 import com.frozendevs.periodictable.view.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -48,24 +43,22 @@ public class PropertiesActivity extends AppCompatActivity {
 
         setContentView(R.layout.properties_activity);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final PeriodicTableApplication application = (PeriodicTableApplication) getApplication();
+        final PeriodicTableApplication application = (PeriodicTableApplication) getApplication();
 
-            final SharedElementCallback callback = application.getSharedElementCallback();
+        final SharedElementCallback callback = application.getSharedElementCallback();
 
-            if (callback != null) {
-                setEnterSharedElementCallback(callback);
-            }
+        if (callback != null) {
+            setEnterSharedElementCallback(callback);
+        }
 
-            /*
-             * Work around shared view alpha state not being restored on exit transition finished.
-             */
-            final View.OnAttachStateChangeListener listener =
-                    application.getOnAttachStateChangeListener();
+        /*
+         * Work around shared view alpha state not being restored on exit transition finished.
+         */
+        final View.OnAttachStateChangeListener listener =
+                application.getOnAttachStateChangeListener();
 
-            if (listener != null) {
-                getWindow().getDecorView().addOnAttachStateChangeListener(listener);
-            }
+        if (listener != null) {
+            getWindow().getDecorView().addOnAttachStateChangeListener(listener);
         }
 
         if (savedInstanceState == null || (mElementProperties = savedInstanceState.getParcelable(
@@ -74,28 +67,25 @@ public class PropertiesActivity extends AppCompatActivity {
                     getIntent().getIntExtra(EXTRA_ATOMIC_NUMBER, 1));
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(
+        CollapsingToolbarLayout collapsingToolbar = findViewById(
                 R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(mElementProperties.getName());
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGUMENT_PROPERTIES, mElementProperties);
 
-        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(this);
-        pagerAdapter.addPage(R.string.fragment_title_properties, PropertiesFragment.class, bundle);
-        pagerAdapter.addPage(R.string.fragment_title_isotopes, IsotopesFragment.class, bundle);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(pagerAdapter);
+        PropertiesFragment propertiesFragment = new PropertiesFragment();
+        propertiesFragment.setArguments(bundle);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, propertiesFragment).commit();
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/NotoSans-Regular.ttf");
 
@@ -105,29 +95,29 @@ public class PropertiesActivity extends AppCompatActivity {
         tableAdapter.getView(mElementProperties, tileView, (ViewGroup) tileView.getParent());
         tileView.setClickable(false);
 
-        TextView configuration = (TextView) findViewById(R.id.element_electron_configuration);
+        TextView configuration = findViewById(R.id.element_electron_configuration);
         configuration.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getElectronConfiguration()));
         configuration.setTypeface(typeface);
 
-        TextView shells = (TextView) findViewById(R.id.element_electrons_per_shell);
+        TextView shells = findViewById(R.id.element_electrons_per_shell);
         shells.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getElectronsPerShell()));
         shells.setTypeface(typeface);
 
-        TextView electronegativity = (TextView) findViewById(R.id.element_electronegativity);
+        TextView electronegativity = findViewById(R.id.element_electronegativity);
         electronegativity.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getElectronegativity()));
         electronegativity.setTypeface(typeface);
 
-        TextView oxidationStates = (TextView) findViewById(R.id.element_oxidation_states);
+        TextView oxidationStates = findViewById(R.id.element_oxidation_states);
         oxidationStates.setText(PropertiesAdapter.formatProperty(this,
                 mElementProperties.getOxidationStates()));
         oxidationStates.setTypeface(typeface);
 
         String imageUrl = mElementProperties.getImageUrl();
 
-        final ImageView backdrop = (ImageView) findViewById(R.id.backdrop);
+        final ImageView backdrop = findViewById(R.id.backdrop);
 
         if (imageUrl.equals("")) {
             backdrop.setImageResource(R.drawable.backdrop);
@@ -198,7 +188,7 @@ public class PropertiesActivity extends AppCompatActivity {
 
         View view = ((RecyclerView.RecyclerContextMenuInfo) item.getMenuInfo()).targetView;
 
-        TextView symbol = (TextView) view.findViewById(R.id.property_symbol);
+        TextView symbol = view.findViewById(R.id.property_value);
 
         if (symbol != null) {
             propertyName = getString(R.string.property_symbol);
@@ -208,11 +198,10 @@ public class PropertiesActivity extends AppCompatActivity {
             propertyValue = (String) ((TextView) view.findViewById(R.id.property_value)).getText();
         }
 
-        switch (item.getItemId()) {
-            case R.id.context_copy:
-                ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).
-                        setPrimaryClip(ClipData.newPlainText(propertyName, propertyValue));
-                return true;
+        if (item.getItemId() == R.id.context_copy) {
+            ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).
+                    setPrimaryClip(ClipData.newPlainText(propertyName, propertyValue));
+            return true;
         }
 
         return super.onContextItemSelected(item);

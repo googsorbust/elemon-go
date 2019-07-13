@@ -2,7 +2,6 @@ package com.frozendevs.periodictable.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +21,7 @@ import com.frozendevs.periodictable.model.TableElementItem;
 import com.frozendevs.periodictable.model.TableItem;
 import com.frozendevs.periodictable.model.adapter.TableAdapter;
 import com.frozendevs.periodictable.view.PeriodicTableView;
+import org.jetbrains.annotations.NotNull;
 import org.tensorflow.lite.examples.detection.R;
 
 import java.util.List;
@@ -51,14 +51,12 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final PeriodicTableApplication application = (PeriodicTableApplication)
-                    getActivity().getApplication();
+        final PeriodicTableApplication application = (PeriodicTableApplication)
+                getActivity().getApplication();
 
-            application.setSharedElementCallback(new SharedElementCallback());
+        application.setSharedElementCallback(new SharedElementCallback());
 
-            application.setOnAttachStateChangeListener(new OnAttachStateChangeListener());
-        }
+        application.setOnAttachStateChangeListener(new OnAttachStateChangeListener());
 
         if (mAdapter.isEmpty()) {
             getLoaderManager().initLoader(R.id.table_loader, null, this);
@@ -66,11 +64,11 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.table_fragment, container, false);
 
-        mPeriodicTableView = (PeriodicTableView) rootView.findViewById(R.id.elements_table);
+        mPeriodicTableView = rootView.findViewById(R.id.elements_table);
         mPeriodicTableView.setBitmapCache(mBitmapCache);
         mPeriodicTableView.setAdapter(mAdapter);
         mPeriodicTableView.setOnItemClickListener(this);
@@ -87,8 +85,7 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
             parent.setEnabled(false);
 
             Intent intent = new Intent(getActivity(), PropertiesActivity.class);
-            intent.putExtra(PropertiesActivity.EXTRA_ATOMIC_NUMBER,
-                    ((TableElementItem) item).getNumber());
+            intent.putExtra(PropertiesActivity.EXTRA_ATOMIC_NUMBER, ((TableElementItem) item).getNumber());
 
             ActivityCompat.startActivity(getActivity(), intent,
                     ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
@@ -105,6 +102,7 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
         super.onResume();
     }
 
+    @NotNull
     @Override
     public Loader<List<TableElementItem>> onCreateLoader(int id, Bundle args) {
         return new AsyncTaskLoader<List<TableElementItem>>(getActivity()) {
@@ -116,7 +114,7 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public void onLoadFinished(Loader<List<TableElementItem>> loader,
+    public void onLoadFinished(@NotNull Loader<List<TableElementItem>> loader,
                                List<TableElementItem> data) {
         mAdapter.setItems(getActivity(), data);
 
@@ -126,11 +124,11 @@ public class TableFragment extends Fragment implements PeriodicTableView.OnItemC
     }
 
     @Override
-    public void onLoaderReset(Loader<List<TableElementItem>> loader) {
+    public void onLoaderReset(@NotNull Loader<List<TableElementItem>> loader) {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(STATE_TABLE_ADAPTER, mAdapter);
