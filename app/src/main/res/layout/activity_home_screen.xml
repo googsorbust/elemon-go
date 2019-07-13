@@ -103,11 +103,13 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:onClick="showMyElementsScreen"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toTopOf="@+id/textView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cloud_computing" />
+                app:srcCompat="@drawable/elements" />
 
             <TextView
                 android:id="@+id/textView"
