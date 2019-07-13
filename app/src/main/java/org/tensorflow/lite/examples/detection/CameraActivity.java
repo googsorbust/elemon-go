@@ -220,8 +220,10 @@ public abstract class CameraActivity extends AppCompatActivity
       intent.putExtra("name", collectable.getName());
     }
     intent.putExtra("object_found", typeObject);
+    collectElements.setEnabled(false);
     startActivity(intent);
   }
+
 
   /** Callback for Camera2 API */
   @Override
@@ -290,6 +292,7 @@ public abstract class CameraActivity extends AppCompatActivity
   public synchronized void onResume() {
     LOGGER.d("onResume " + this);
     super.onResume();
+    collectElements.setEnabled(true);
 
     handlerThread = new HandlerThread("inference");
     handlerThread.start();
