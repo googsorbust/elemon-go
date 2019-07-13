@@ -5,13 +5,10 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.SharedElementCallback;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
@@ -19,12 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.frozendevs.periodictable.PeriodicTableApplication;
 import com.frozendevs.periodictable.content.Database;
-import com.frozendevs.periodictable.fragment.IsotopesFragment;
 import com.frozendevs.periodictable.fragment.PropertiesFragment;
 import com.frozendevs.periodictable.model.ElementProperties;
 import com.frozendevs.periodictable.model.adapter.PropertiesAdapter;
 import com.frozendevs.periodictable.model.adapter.TableAdapter;
-import com.frozendevs.periodictable.model.adapter.ViewPagerAdapter;
 import com.frozendevs.periodictable.view.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -48,24 +43,22 @@ public class PropertiesActivity extends AppCompatActivity {
 
         setContentView(R.layout.properties_activity);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final PeriodicTableApplication application = (PeriodicTableApplication) getApplication();
+        final PeriodicTableApplication application = (PeriodicTableApplication) getApplication();
 
-            final SharedElementCallback callback = application.getSharedElementCallback();
+        final SharedElementCallback callback = application.getSharedElementCallback();
 
-            if (callback != null) {
-                setEnterSharedElementCallback(callback);
-            }
+        if (callback != null) {
+            setEnterSharedElementCallback(callback);
+        }
 
-            /*
-             * Work around shared view alpha state not being restored on exit transition finished.
-             */
-            final View.OnAttachStateChangeListener listener =
-                    application.getOnAttachStateChangeListener();
+        /*
+         * Work around shared view alpha state not being restored on exit transition finished.
+         */
+        final View.OnAttachStateChangeListener listener =
+                application.getOnAttachStateChangeListener();
 
-            if (listener != null) {
-                getWindow().getDecorView().addOnAttachStateChangeListener(listener);
-            }
+        if (listener != null) {
+            getWindow().getDecorView().addOnAttachStateChangeListener(listener);
         }
 
         if (savedInstanceState == null || (mElementProperties = savedInstanceState.getParcelable(
@@ -87,15 +80,12 @@ public class PropertiesActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGUMENT_PROPERTIES, mElementProperties);
 
-        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(this);
-        pagerAdapter.addPage(R.string.fragment_title_properties, PropertiesFragment.class, bundle);
-        pagerAdapter.addPage(R.string.fragment_title_isotopes, IsotopesFragment.class, bundle);
 
-        ViewPager viewPager = findViewById(R.id.pager);
-        viewPager.setAdapter(pagerAdapter);
+        PropertiesFragment propertiesFragment = new PropertiesFragment();
+        propertiesFragment.setArguments(bundle);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, propertiesFragment).commit();
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/NotoSans-Regular.ttf");
 
