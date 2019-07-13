@@ -92,6 +92,7 @@ public abstract class CameraActivity extends AppCompatActivity
   public static TextView objectType;
   public static Button collectElements;
   public static Element collectable;
+  public static String typeObject = "";
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -231,6 +232,7 @@ public abstract class CameraActivity extends AppCompatActivity
       intent.putExtra("weight", collectable.getWeight());
       intent.putExtra("name", collectable.getName());
     }
+    intent.putExtra("object_found", typeObject);
     startActivity(intent);
   }
 

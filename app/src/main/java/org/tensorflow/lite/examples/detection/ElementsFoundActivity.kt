@@ -32,6 +32,7 @@ class ElementsFoundActivity : AppCompatActivity() {
         val numberText = intent.getIntExtra("number", -1)
         val nameText = intent.getStringExtra("name")
         val weightText = intent.getStringExtra("weight")
+        val objectText = intent.getStringExtra("object_found")
 
         symbol = findViewById<TextView>(R.id.element_symbol_found)
         number = findViewById<TextView>(R.id.element_number_found)
@@ -42,10 +43,10 @@ class ElementsFoundActivity : AppCompatActivity() {
         pointsTextView = findViewById(R.id.points)
 
         if (numberText == -1) {
-            titleElement.text = "No Element Found"
+            titleElement.text = "No element found in ${objectText.capitalize()}"
             shittyLayout.visibility = View.INVISIBLE
         } else {
-            titleElement.text = "Element Found!"
+            titleElement.text = "Element found in ${objectText.capitalize()}!"
             symbol.text = symbolText
             number.text = numberText.toString()
             name.text = nameText

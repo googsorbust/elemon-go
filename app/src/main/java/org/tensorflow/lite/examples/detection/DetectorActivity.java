@@ -173,20 +173,22 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       laptopElements.add(new Element("Al", 13, "26.982", "Aluminium", false));
 
       List<Element> broccoliElements = new ArrayList<>();
+      broccoliElements.add(new Element("S", 16, "32.06", "Sulphur", false));
       broccoliElements.add(new Element("C", 6, "12.011", "Carbon", false));
       broccoliElements.add(new Element("H", 1, "1", "Hydrogen", false));
       broccoliElements.add(new Element("O", 8, "16", "Oxygen", false));
       broccoliElements.add(new Element("N", 7, "14", "Nitrogen", false));
-      broccoliElements.add(new Element("S", 16, "32.06", "Sulphur", false));
+
 
       List<Element> carrotElements = new ArrayList<>();
-      carrotElements.add(new Element("H", 1, "1", "Hydrogen", false));
       carrotElements.add(new Element("O", 8, "16", "Oxygen", false));
+      carrotElements.add(new Element("H", 1, "1", "Hydrogen", false));
+
 
       List<Element> personElements = new ArrayList<>();
-      personElements.add(new Element("C", 6, "12.011", "Carbon", false));
       personElements.add(new Element("H", 1, "1", "Hydrogen", false));
       personElements.add(new Element("O", 8, "16", "Oxygen", false));
+      personElements.add(new Element("C", 6, "12.011", "Carbon", false));
 
       List<Element> cakeElements = new ArrayList<>();
       cakeElements.add(new Element("Na", 11, "22.990", "Sodium", false));
@@ -285,8 +287,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                               if(recognition.getConfidence() >= highestRecognition) {
                                   highestRecognition = recognition.getConfidence();
                               }
-                              if(highestRecognition > 0.7) {
+                              if(highestRecognition > 0.6) {
                                   objectType.setText(recognition.getTitle());
+                                  typeObject = recognition.getTitle();
                                   collectElements.setVisibility(View.VISIBLE);
                                   try{
                                       collectable = elementsList.get(recognition.getTitle()).get(0);
