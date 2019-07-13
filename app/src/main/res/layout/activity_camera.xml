@@ -42,6 +42,7 @@
                 android:layout_marginStart="132dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="132dp"
+                android:onClick="analyseElements"
                 android:text="Collect Elements"
                 android:visibility="invisible" />
 

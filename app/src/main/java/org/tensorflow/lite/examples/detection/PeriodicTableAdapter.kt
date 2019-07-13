@@ -27,10 +27,10 @@ class PeriodicTableAdapter(
 }
 
 class ElementViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-    private val elementNumber: TextView = view.findViewById(R.id.element_number)
-    private val elementName: TextView = view.findViewById(R.id.element_name)
-    private val elementSymbol: TextView = view.findViewById(R.id.element_symbol)
-    private val elementWeight: TextView = view.findViewById(R.id.element_weight)
+    private val elementNumber: TextView = view.findViewById(R.id.element_number_found)
+    private val elementName: TextView = view.findViewById(R.id.element_name_found)
+    private val elementSymbol: TextView = view.findViewById(R.id.element_symbol_found)
+    private val elementWeight: TextView = view.findViewById(R.id.element_weight_found)
 
 
     fun init(element: Element) {

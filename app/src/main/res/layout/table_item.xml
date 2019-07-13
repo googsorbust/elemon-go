@@ -7,32 +7,32 @@
     android:transitionName="@string/transition_table_item">
 
     <TextView
-        android:id="@+id/element_symbol"
+        android:id="@+id/element_symbol_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/element_symbol"
-        android:layout_toStartOf="@id/element_symbol"
+        android:layout_toLeftOf="@id/element_symbol_found"
+        android:layout_toStartOf="@id/element_symbol_found"
         android:text="@string/property_atom_symbol"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/element_number"
+        android:id="@+id/element_number_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@id/element_symbol"
-        android:layout_toRightOf="@id/element_symbol"
+        android:layout_toEndOf="@id/element_symbol_found"
+        android:layout_toRightOf="@id/element_symbol_found"
         android:gravity="end"
         android:text="@string/property_atomic_number_symbol"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/element_weight"
+        android:id="@+id/element_weight_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -44,11 +44,11 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/element_name"
+        android:id="@+id/element_name_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/element_weight"
-        android:layout_below="@id/element_number"
+        android:layout_above="@id/element_weight_found"
+        android:layout_below="@id/element_number_found"
         android:layout_centerInParent="true"
         android:ellipsize="marquee"
         android:gravity="center_vertical"

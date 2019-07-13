@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ElementsFoundActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/shittyLayout"
+        android:layout_width="244dp"
+        android:layout_height="208dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleElement">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="143dp"
+            android:layout_height="142dp"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="52dp"
+            android:layout_marginBottom="20dp"
+            android:background="#FFFFFF"
+            android:layoutDirection="ltr"
+            android:padding="5dp"
+            android:transitionName="@string/transition_table_item"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/element_symbol_found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@id/element_symbol_found"
+                android:layout_toLeftOf="@id/element_symbol_found"
+                android:text="@string/property_atom_symbol"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/element_number_found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_toEndOf="@id/element_symbol_found"
+                android:layout_toRightOf="@id/element_symbol_found"
+                android:gravity="end"
+                android:text="@string/property_atomic_number_symbol"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/element_weight_found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="end|bottom"
+                android:text="@string/property_relative_atomic_mass_symbol"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/element_name_found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/element_weight_found"
+                android:layout_below="@id/element_number_found"
+                android:layout_centerInParent="true"
+                android:ellipsize="marquee"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@string/property_name"
+                android:textColor="@android:color/black"
+                android:textSize="25sp" />
+
+        </RelativeLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/titleElement"
+        android:layout_width="298dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="98dp"
+        android:gravity="center"
+        android:text="Element Found!"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/points"
+        android:layout_width="252dp"
+        android:layout_height="107dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="176dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shittyLayout" />
+
+</android.support.constraint.ConstraintLayout>
+

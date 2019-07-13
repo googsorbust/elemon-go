@@ -21,7 +21,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/element_symbol"
+            android:id="@+id/element_symbol_found"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -30,7 +30,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/element_number"
+            android:id="@+id/element_number_found"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -41,7 +41,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/element_name"
+        android:id="@+id/element_name_found"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"

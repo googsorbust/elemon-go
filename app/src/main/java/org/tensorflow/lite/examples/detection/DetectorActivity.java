@@ -198,6 +198,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       List<Element> forkElements = new ArrayList<>();
       forkElements.add(new Element("Ag", 47, "107.87", "Silver", false));
 
+      List<Element> zebraElements = new ArrayList<>();
+      zebraElements.add(new Element("Ag", 47, "107.87", "Silver", false));
+
       elementsList.put("spoon", spoonElements);
       elementsList.put("banana", bananaElements);
       elementsList.put("donut", donutElements);
@@ -208,6 +211,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       elementsList.put("person", personElements);
       elementsList.put("cake", cakeElements);
       elementsList.put("fork", forkElements);
+      elementsList.put("zebra", zebraElements);
   }
 
   @Override
@@ -272,6 +276,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
               runOnUiThread(
                       () -> {
+
 //                        showFrameInfo(previewWidth + "x" + previewHeight);
 //                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
 //                        showInference(lastProcessingTimeMs + "ms");
@@ -283,9 +288,15 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                               if(highestRecognition > 0.7) {
                                   objectType.setText(recognition.getTitle());
                                   collectElements.setVisibility(View.VISIBLE);
+                                  try{
+                                      collectable = elementsList.get(recognition.getTitle()).get(0);
+                                  } catch(Exception e) {
+                                     // Go away, nothing to see here
+                                  }
                               } else {
                                   objectType.setText("Analysing Environment");
                                   collectElements.setVisibility(View.INVISIBLE);
+                                  collectable = null;
                               }
                           }
                       });
