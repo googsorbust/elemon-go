@@ -44,6 +44,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -87,6 +88,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private ImageView plusImageView, minusImageView;
   private SwitchCompat apiSwitchCompat;
   private TextView threadsTextView;
+  public static TextView objectType;
+  public static Button collectElements;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -95,9 +98,9 @@ public abstract class CameraActivity extends AppCompatActivity
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     setContentView(R.layout.activity_camera);
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
+//    Toolbar toolbar = findViewById(R.id.toolbar);
+//    setSupportActionBar(toolbar);
+//    getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     if (hasPermission()) {
       setFragment();
@@ -113,6 +116,8 @@ public abstract class CameraActivity extends AppCompatActivity
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
+    objectType = findViewById(R.id.objectType);
+    collectElements = findViewById(R.id.analyseButton);
 
     ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(
@@ -276,6 +281,7 @@ public abstract class CameraActivity extends AppCompatActivity
   public synchronized void onStart() {
     LOGGER.d("onStart " + this);
     super.onStart();
+    setNumThreads(4);
   }
 
   @Override
@@ -481,7 +487,6 @@ public abstract class CameraActivity extends AppCompatActivity
       if (numThreads >= 9) return;
       numThreads++;
       threadsTextView.setText(String.valueOf(numThreads));
-      setNumThreads(numThreads);
     } else if (v.getId() == R.id.minus) {
       String threads = threadsTextView.getText().toString().trim();
       int numThreads = Integer.parseInt(threads);
@@ -490,7 +495,6 @@ public abstract class CameraActivity extends AppCompatActivity
       }
       numThreads--;
       threadsTextView.setText(String.valueOf(numThreads));
-      setNumThreads(numThreads);
     }
   }
 

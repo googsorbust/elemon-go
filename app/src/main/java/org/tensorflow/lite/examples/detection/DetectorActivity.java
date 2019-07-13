@@ -29,8 +29,10 @@ import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.Toast;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
@@ -134,7 +136,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     trackingOverlay = findViewById(R.id.tracking_overlay);
     trackingOverlay.addCallback(
             canvas -> {
-              tracker.draw(canvas);
+//              tracker.draw(canvas);
               if (isDebug()) {
                 tracker.drawDebug(canvas);
               }
@@ -196,6 +198,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 }
               }
 
+
+
               tracker.trackResults(mappedRecognitions, currTimestamp);
               trackingOverlay.postInvalidate();
 
@@ -203,9 +207,23 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
               runOnUiThread(
                       () -> {
-                        showFrameInfo(previewWidth + "x" + previewHeight);
-                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-                        showInference(lastProcessingTimeMs + "ms");
+//                        showFrameInfo(previewWidth + "x" + previewHeight);
+//                        showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
+//                        showInference(lastProcessingTimeMs + "ms");
+                          float highestRecognition = 0.0f;
+                          for(Classifier.Recognition recognition: mappedRecognitions) {
+                              if(recognition.getConfidence() >= highestRecognition) {
+                                  highestRecognition = recognition.getConfidence();
+                              }
+                              if(highestRecognition > 0.6) {
+                                  objectType.setText(recognition.getTitle());
+                                  collectElements.setVisibility(View.VISIBLE);
+                              } else {
+
+                                  objectType.setText("Analysing Environment");
+                                  collectElements.setVisibility(View.INVISIBLE);
+                              }
+                          }
                       });
             });
   }
