@@ -37,7 +37,7 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
 
     private static final int GREYED_OUT = Color.GRAY;
 
-    private static final int[] COLORS = {
+    public static final int[] COLORS = {
             R.color.category_diatomic_nonmetals_bg,
             R.color.category_noble_gases_bg,
             R.color.category_alkali_metals_bg,

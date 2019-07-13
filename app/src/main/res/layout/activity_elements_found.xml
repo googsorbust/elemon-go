@@ -17,6 +17,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleElement">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/element_found_container"
             android:layout_width="143dp"
             android:layout_height="142dp"
             android:layout_marginStart="53dp"

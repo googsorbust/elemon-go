@@ -3,13 +3,15 @@ package org.tensorflow.lite.examples.detection
 import android.content.Context
 import android.content.SharedPreferences
 import android.media.MediaPlayer
-import android.opengl.Visibility
 import android.os.*
-import android.support.v7.app.AppCompatActivity
 import android.support.constraint.ConstraintLayout
+import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_elements_found.*
+import com.frozendevs.periodictable.content.Database
+import com.frozendevs.periodictable.model.ElementProperties
+import com.frozendevs.periodictable.model.adapter.TableAdapter.COLORS
 
 class ElementsFoundActivity : AppCompatActivity() {
 
@@ -18,6 +20,7 @@ class ElementsFoundActivity : AppCompatActivity() {
     private lateinit var name: TextView
     private lateinit var weight: TextView
     private lateinit var titleElement: TextView
+    private lateinit var elementContainer: RelativeLayout
     private lateinit var shittyLayout: ConstraintLayout
     private lateinit var sharedPref: SharedPreferences
     private lateinit var collectedElements: MutableSet<String>
@@ -42,13 +45,14 @@ class ElementsFoundActivity : AppCompatActivity() {
         val weightText = intent.getStringExtra("weight")
         val objectText = intent.getStringExtra("object_found")
 
-        symbol = findViewById<TextView>(R.id.element_symbol_found)
-        number = findViewById<TextView>(R.id.element_number_found)
-        name = findViewById<TextView>(R.id.element_name_found)
-        weight = findViewById<TextView>(R.id.element_weight_found)
+        symbol = findViewById(R.id.element_symbol_found)
+        number = findViewById(R.id.element_number_found)
+        name = findViewById(R.id.element_name_found)
+        weight = findViewById(R.id.element_weight_found)
         titleElement = findViewById(R.id.titleElement)
         shittyLayout = findViewById(R.id.shittyLayout)
         pointsTextView = findViewById(R.id.points)
+        elementContainer = findViewById(R.id.element_found_container)
 
         celebrate = Runnable { //play animation in another activity...
             mp.isLooping = false
@@ -71,8 +75,18 @@ class ElementsFoundActivity : AppCompatActivity() {
             number.text = numberText.toString()
             name.text = nameText
             weight.text = weightText
+
+            val mElementProperties = Database.getElement(
+                this, ElementProperties::class.java,
+                numberText
+            )
+
+
+            elementContainer.setBackgroundColor(this.resources.getColor(COLORS[mElementProperties.category]))
+
+
+
             if(collectedElements.contains(numberText.toString())){
-                var score = sharedPref.getInt("POINTS", 0)
                 pointsTextView.text = "No points given. You have already found this element"
             } else {
                 pointsTextView.text = "You earned ${number.text} points!"
