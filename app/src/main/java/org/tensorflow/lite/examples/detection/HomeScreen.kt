@@ -34,8 +34,8 @@ class HomeScreen : AppCompatActivity() {
     }
 
     fun showMyElementsScreen(view: View) {
-        val myIntent = Intent(this@HomeScreen, MyElements::class.java)
-        this@HomeScreen.startActivity(myIntent)
+//        val myIntent = Intent(this@HomeScreen, MyElements::class.java)
+//        this@HomeScreen.startActivity(myIntent)
 
     }
 
