@@ -55,9 +55,9 @@ class ElementsFoundActivity : AppCompatActivity() {
             mp.start()
             if (vibrator.hasVibrator()) { // Vibrator availability checking
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(5000, VibrationEffect.DEFAULT_AMPLITUDE)) // New vibrate method for API Level 26 or higher
+                    vibrator.vibrate(VibrationEffect.createOneShot(2000, VibrationEffect.DEFAULT_AMPLITUDE)) // New vibrate method for API Level 26 or higher
                 } else {
-                    vibrator.vibrate(5000) // Vibrate method for below API Level 26
+                    vibrator.vibrate(2000) // Vibrate method for below API Level 26
                 }
             }
         }

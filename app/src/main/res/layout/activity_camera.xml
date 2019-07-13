@@ -36,15 +36,15 @@
                 android:id="@+id/analyseButton"
                 android:layout_width="147dp"
                 android:layout_height="77dp"
-                android:layout_below="@+id/objectType"
                 android:layout_alignStart="@+id/container"
                 android:layout_alignEnd="@+id/container"
+                android:layout_alignBottom="@+id/container"
                 android:layout_marginStart="132dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginEnd="132dp"
+                android:layout_marginBottom="48dp"
                 android:onClick="analyseElements"
                 android:text="Collect Elements"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <FrameLayout
                 android:id="@+id/container"
@@ -55,18 +55,18 @@
 
             <TextView
                 android:id="@+id/objectType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="315dp"
+                android:layout_height="82dp"
+                android:layout_above="@+id/analyseButton"
                 android:layout_alignStart="@+id/container"
-                android:layout_alignTop="@+id/container"
                 android:layout_alignEnd="@+id/container"
-                android:layout_marginStart="96dp"
-                android:layout_marginTop="500dp"
-                android:layout_marginEnd="96dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="46dp"
+                android:layout_marginBottom="26dp"
                 android:gravity="center"
                 android:text=""
                 android:textColor="#FFFFFF"
-                android:textSize="30sp"
+                android:textSize="28sp"
                 tools:text="Analysing Environment" />
 
         </RelativeLayout>
