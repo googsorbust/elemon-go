@@ -2,9 +2,10 @@ package org.tensorflow.lite.examples.detection
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import android.opengl.Visibility
+import android.os.*
 import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.widget.TextView
@@ -21,10 +22,17 @@ class ElementsFoundActivity : AppCompatActivity() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var collectedElements: MutableSet<String>
     private lateinit var pointsTextView: TextView
+    private lateinit var celebrate: Runnable
+    private lateinit var mp: MediaPlayer
+    private lateinit var vibrator: Vibrator
+    private lateinit var handler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_elements_found)
+        handler = Handler()
+        mp = MediaPlayer.create(this,R.raw.celebrate)
+        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         sharedPref = getSharedPreferences("test",Context.MODE_PRIVATE)
         collectedElements = sharedPref.getStringSet("elements", mutableSetOf())!!
 
@@ -41,6 +49,18 @@ class ElementsFoundActivity : AppCompatActivity() {
         titleElement = findViewById(R.id.titleElement)
         shittyLayout = findViewById(R.id.shittyLayout)
         pointsTextView = findViewById(R.id.points)
+
+        celebrate = Runnable { //play animation in another activity...
+            mp.isLooping = false
+            mp.start()
+            if (vibrator.hasVibrator()) { // Vibrator availability checking
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(5000, VibrationEffect.DEFAULT_AMPLITUDE)) // New vibrate method for API Level 26 or higher
+                } else {
+                    vibrator.vibrate(5000) // Vibrate method for below API Level 26
+                }
+            }
+        }
 
         if (numberText == -1) {
             titleElement.text = "No element found in ${objectText.capitalize()}"
@@ -59,13 +79,30 @@ class ElementsFoundActivity : AppCompatActivity() {
                 var score = sharedPref.getInt("POINTS", 0)
                 score += numberText
                 sharedPref.edit().putInt("POINTS", score).apply()
+                celebrate()
             }
         }
 
         collectedElements.add(numberText.toString())
 
         setValues()
+
+
+
     }
+
+    private fun celebrate() {
+        handler.post(celebrate)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(celebrate)
+        mp.stop()
+        vibrator.cancel()
+    }
+
+
 
     private fun setValues() {
         sharedPref.edit().putStringSet("elements", collectedElements).apply()
