@@ -251,6 +251,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                   result.setLocation(location);
                   mappedRecognitions.add(result);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                    }
                 }
               }
 
