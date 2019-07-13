@@ -2,6 +2,7 @@ package com.frozendevs.periodictable.model.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,9 +19,7 @@ import org.tensorflow.lite.examples.detection.R;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TableAdapter extends PeriodicTableView.Adapter implements Parcelable {
 
@@ -67,6 +66,7 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
     private int mGroupsCount;
     private int mPeriodsCount;
     private Map<Integer, TableItem> mItems = new HashMap<>();
+    private Set<Integer> seenElements = new HashSet<>();
 
     public TableAdapter() {
     }
@@ -160,7 +160,12 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
         } catch (NumberFormatException ignored) {
         }
 
-        convertView.setBackgroundColor(getBackgroundColor(context, item));
+        if (seenElements.contains(item.getNumber())) {
+            System.out.println("SEEN: " + item.getName());
+            convertView.setBackgroundColor(getBackgroundColor(context, item));
+        } else {
+            convertView.setBackgroundColor(Color.GRAY);
+        }
 
         viewHolder.symbol.setText(item.getSymbol());
         viewHolder.number.setText(String.valueOf(item.getNumber()));
@@ -204,8 +209,9 @@ public class TableAdapter extends PeriodicTableView.Adapter implements Parcelabl
         return ViewType.values().length;
     }
 
-    public void setItems(Context context, List<TableElementItem> items) {
+    public void setItems(Context context, List<TableElementItem> items, Set<Integer> seenElements) {
         mItems.clear();
+        this.seenElements = seenElements;
 
         if (items == null) {
             return;
